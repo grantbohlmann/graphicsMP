@@ -26,17 +26,19 @@ GLint getRand() {
 A3Engine::A3Engine()
          : CSCI441::OpenGLEngine(4, 1,
                                  640, 480,
-                                 "A3: SkipShowers 3D Avatar") {
+                                 "Shape Shifters: Graphics MP") {
 
     for(auto& _key : _keys) _key = GL_FALSE;
 
     _mousePosition = glm::vec2(MOUSE_UNINITIALIZED, MOUSE_UNINITIALIZED );
     _leftMouseButtonState = GLFW_RELEASE;
     _arcBallCamSpeed = 0.05f;
+    _isSkipShowers = true; _isBith = false; _isArcballCam = true; _isFirstPersonCam = false; _isFreeCam = false;
 }
 
 A3Engine::~A3Engine() {
     delete _pSkipShowers;
+    delete _pFreeCam;
 }
 
 void A3Engine::handleKeyEvent(GLint key, GLint action) {
@@ -72,8 +74,14 @@ void A3Engine::handleCursorPositionEvent(glm::vec2 currMousePosition) {
 
     // if the left mouse button is being held down while the mouse is moving
     if(_leftMouseButtonState == GLFW_PRESS) {
-        _pSkipShowers->getCam()->rotate((currMousePosition.x - _mousePosition.x) * 0.005f,
-                                        (currMousePosition.y - _mousePosition.y) * 0.005f);
+        if (_isArcballCam) {
+            _pSkipShowers->getArcballCam()->rotate((currMousePosition.x - _mousePosition.x) * 0.005f,
+                (currMousePosition.y - _mousePosition.y) * 0.005f);
+        }
+        else if (_isFreeCam) {
+            _pFreeCam->rotate((currMousePosition.x - _mousePosition.x) * 0.005f,
+                (_mousePosition.y - currMousePosition.y) * 0.005f);
+        }
     }
 
 
@@ -227,6 +235,13 @@ void A3Engine::_generateEnvironment() {
 }
 
 void A3Engine::mSetupScene() {
+    // setup free cam (press 2)
+    _pFreeCam = new CSCI441::FreeCam();
+    _pFreeCam->setPosition(glm::vec3(60.0f, 40.0f, 30.0f));
+    _pFreeCam->setTheta(-M_PI / 3.0f);
+    _pFreeCam->setPhi(M_PI / 2.8f);
+    _pFreeCam->recomputeOrientation();
+    _cameraSpeed = glm::vec2(0.25f, 0.02f);
     // set lighting uniforms
     glm::vec3 lightDirection = glm::vec3(-1,-1,-1);
     glm::vec3 lightColor = glm::vec3(1,1,1);
@@ -304,18 +319,23 @@ void A3Engine::_updateScene() {
     // move
     if( _keys[GLFW_KEY_SPACE] ) {
         // zoom out if shift held down
-        if( _keys[GLFW_KEY_LEFT_SHIFT] || _keys[GLFW_KEY_RIGHT_SHIFT] ) {
-            _pSkipShowers->getCam()->moveBackward(_arcBallCamSpeed);
+        if( (_keys[GLFW_KEY_LEFT_SHIFT] || _keys[GLFW_KEY_RIGHT_SHIFT]) &&  _isArcballCam ) {
+            _pSkipShowers->getArcballCam()->moveBackward(_arcBallCamSpeed);
+        }
+        else if ((_keys[GLFW_KEY_LEFT_SHIFT] || _keys[GLFW_KEY_RIGHT_SHIFT]) && _isFreeCam) {
+            _pFreeCam->moveBackward(_cameraSpeed.x);
         }
         // zoom in if space pressed and no shift
-        else {
-            _pSkipShowers->getCam()->moveForward(_arcBallCamSpeed);
+        else if (_isArcballCam) {
+            _pSkipShowers->getArcballCam()->moveForward(_arcBallCamSpeed);
+        }
+        else if (_isFreeCam) {
+            _pFreeCam->moveForward(_cameraSpeed.x);
         }
     }
     // turn right
     if( _keys[GLFW_KEY_D] || _keys[GLFW_KEY_RIGHT] ) {
         _pSkipShowers->turnRight();
-
     }
     // turn left
     if( _keys[GLFW_KEY_A] || _keys[GLFW_KEY_LEFT] ) {
@@ -328,6 +348,23 @@ void A3Engine::_updateScene() {
     // move backward
     if( _keys[GLFW_KEY_S] || _keys[GLFW_KEY_DOWN] ) {
         _pSkipShowers->moveBackwards();
+    }
+
+    // change camera view
+    if (_keys[GLFW_KEY_1]) {   // set camera to ArcballCam
+        _isArcballCam = true;
+        _isFreeCam = false;
+        _isFirstPersonCam = false;
+    }
+    else if (_keys[GLFW_KEY_2]) {   // set camera to FreeCam
+        _isFreeCam = true;
+        _isArcballCam = false;
+        _isFirstPersonCam = false;
+    }
+    else if (_keys[GLFW_KEY_3]) {  // set camera to first person
+        _isFirstPersonCam = true;
+        _isArcballCam = false;
+        _isFreeCam = false;
     }
 }
 
@@ -348,10 +385,16 @@ void A3Engine::run() {
         // update the viewport - tell OpenGL we want to render to the whole window
         glViewport( 0, 0, framebufferWidth, framebufferHeight );
 
-        // draw everything to the window
-        //std::cout << "Before renderScene" << std::endl;
-        _renderScene(_pSkipShowers->getCam()->getViewMatrix(), _pSkipShowers->getCam()->getProjectionMatrix());
-        //std::cout << "After renderScene" << std::endl;
+        // draw everything to the window (based on current camera view)
+        if (_isArcballCam) {
+            _renderScene(_pSkipShowers->getArcballCam()->getViewMatrix(), _pSkipShowers->getArcballCam()->getProjectionMatrix());
+        }
+        else if (_isFreeCam) {
+            _renderScene(_pFreeCam->getViewMatrix(), _pFreeCam->getProjectionMatrix());
+        }
+        else if (_isFirstPersonCam) {
+            _renderScene(_pSkipShowers->getFirstPersonCam()->getViewMatrix(), _pSkipShowers->getFirstPersonCam()->getProjectionMatrix());
+        }
         _updateScene();
 
         glfwSwapBuffers(mpWindow);                       // flush the OpenGL commands and make sure they get rendered!
@@ -361,7 +404,7 @@ void A3Engine::run() {
 
 //*************************************************************************************
 //
-// Private Helper FUnctions
+// Private Helper Functions
 
 void A3Engine::_computeAndSendMatrixUniforms(glm::mat4 modelMtx, glm::mat4 viewMtx, glm::mat4 projMtx) const {
     // precompute the Model-View-Projection matrix on the CPU

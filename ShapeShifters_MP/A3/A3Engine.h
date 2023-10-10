@@ -71,8 +71,16 @@ private:
     SkipShowers* _pSkipShowers;
 
     // ArcBallCam
-    ArcBallCam* _pArcBallCam;
     GLfloat _arcBallCamSpeed;
+    // FreeCam
+    CSCI441::FreeCam* _pFreeCam;
+
+    // Camera and Character booleans (used when moving between characters and cameras)
+    bool _isSkipShowers;
+    bool _isBith;
+    bool _isArcballCam;
+    bool _isFirstPersonCam;
+    bool _isFreeCam;
 
     /// \desc the size of the world (controls the ground size and locations of buildings)
     static constexpr GLfloat WORLD_SIZE = 55.0f;

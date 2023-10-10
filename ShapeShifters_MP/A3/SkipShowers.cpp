@@ -15,6 +15,7 @@ SkipShowers::SkipShowers( GLuint shaderProgramHandle, GLint mvpMtxUniformLocatio
     _rotateHeroAngle = 0.0f;
     _legDirectionBool = true;
     _movementX = 0.0f; _movementY = 0.0f;
+    _cameraTheta = 0.0f;
 
     _shaderProgramHandle                            = shaderProgramHandle;
     _shaderProgramUniformLocations.mvpMtx           = mvpMtxUniformLocation;
@@ -40,6 +41,11 @@ SkipShowers::SkipShowers( GLuint shaderProgramHandle, GLint mvpMtxUniformLocatio
     _arcBallCam->setPosition(glm::vec3(1.0f, 1.0f, 1.0f));
     _arcBallCam->setTheta(0.0f);
     _arcBallCam->setPhi(1.57f);
+
+    _firstPersonCam = new CSCI441::FreeCam();
+    _firstPersonCam->setPosition(glm::vec3(1.0f, 1.0f, 1.0f));
+    _firstPersonCam->setTheta(_cameraTheta);
+    _firstPersonCam->setPhi(1.57f);
 }
 
 void SkipShowers::drawHero( glm::mat4 modelMtx, glm::mat4 viewMtx, glm::mat4 projMtx ) {
@@ -53,9 +59,6 @@ void SkipShowers::drawHero( glm::mat4 modelMtx, glm::mat4 viewMtx, glm::mat4 pro
     _drawEyes(modelMtx, viewMtx, projMtx);   // the eyes
 
     updateCam();
-
-    glm::mat4 viewMatrix = _arcBallCam->getViewMatrix();
-    glm::mat4 projMatrix = _arcBallCam->getProjectionMatrix();
 }
 
 void SkipShowers::walkHero() {
@@ -194,8 +197,11 @@ GLfloat SkipShowers::getMovementX() const {
 GLfloat SkipShowers::getMovementY() const {
     return _movementY;
 }
-ArcBallCam* SkipShowers::getCam() const {
+ArcBallCam* SkipShowers::getArcballCam() const {
     return _arcBallCam;
+}
+CSCI441::FreeCam* SkipShowers::getFirstPersonCam() const {
+    return _firstPersonCam;
 }
 GLfloat SkipShowers::getHeroRotationAngle() const {
     return _rotateHeroAngle;
@@ -212,4 +218,13 @@ void SkipShowers::updateCam() {
     glm::vec3 lookAtPoint = glm::vec3(_movementX, 0.5f, _movementY);
     _arcBallCam->setLookAtPoint(lookAtPoint);
     _arcBallCam->recomputeOrientation();
+
+    glm::vec3 fpCameraPosition = glm::vec3(_movementX,
+                                         0.45f,
+                                         _movementY);
+    _firstPersonCam->setPosition(fpCameraPosition);
+    glm::vec3 fpLookAtPoint = glm::vec3(_movementX-0.1f, 0.45f, _movementY);
+    _firstPersonCam->setLookAtPoint(fpLookAtPoint);
+    _firstPersonCam->setTheta(-_rotateHeroAngle-1.57f);
+    _firstPersonCam->recomputeOrientation();
 }

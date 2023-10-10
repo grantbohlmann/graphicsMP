@@ -9,6 +9,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
+#include <CSCI441/FreeCam.hpp>
 #include "ArcBallCam.h"
 
 class SkipShowers {
@@ -28,17 +29,22 @@ public:
 
     GLfloat getMovementX() const;
     GLfloat getMovementY() const;
-    ArcBallCam* getCam() const;
+    ArcBallCam* getArcballCam() const;
+    CSCI441::FreeCam* getFirstPersonCam() const;
     GLfloat getHeroRotationAngle() const;
 
     void updateCam();
 
 private:
     ArcBallCam* _arcBallCam;
+    CSCI441::FreeCam* _firstPersonCam;
 
     GLfloat _legAngle;  // use positive angle for one leg and negative angle for the other for animation
     GLfloat _rotateHeroAngle;   // used to determine which direction hero is facing
     GLboolean _legDirectionBool;
+
+    // test function angle
+    GLfloat _cameraTheta;
 
     GLfloat _movementX;
     GLfloat _movementY;
