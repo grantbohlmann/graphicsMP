@@ -2,7 +2,7 @@
 
 #include <CSCI441/objects.hpp>
 #include <iostream>
-
+#include <ctime>
 //*************************************************************************************
 //
 // Helper Functions
@@ -38,6 +38,7 @@ A3Engine::A3Engine()
 
 A3Engine::~A3Engine() {
     delete _pSkipShowers;
+    delete _pBith;
     delete _pFreeCam;
 }
 
@@ -75,8 +76,14 @@ void A3Engine::handleCursorPositionEvent(glm::vec2 currMousePosition) {
     // if the left mouse button is being held down while the mouse is moving
     if(_leftMouseButtonState == GLFW_PRESS) {
         if (_isArcballCam) {
-            _pSkipShowers->getArcballCam()->rotate((currMousePosition.x - _mousePosition.x) * 0.005f,
-                (currMousePosition.y - _mousePosition.y) * 0.005f);
+            if(_isSkipShowers) {
+                _pSkipShowers->getArcballCam()->rotate((currMousePosition.x - _mousePosition.x) * 0.005f,
+                                                       (currMousePosition.y - _mousePosition.y) * 0.005f);
+            }
+            else if(_pBith){
+                _pBith->getArcballCam()->rotate((currMousePosition.x - _mousePosition.x) * 0.005f,
+                                                       (currMousePosition.y - _mousePosition.y) * 0.005f);
+            }
         }
         else if (_isFreeCam) {
             _pFreeCam->rotate((currMousePosition.x - _mousePosition.x) * 0.005f,
@@ -135,6 +142,11 @@ void A3Engine::mSetupBuffers() {
                                     _lightingShaderUniformLocations.mvpMatrix,
                                     _lightingShaderUniformLocations.normalMtx,
                                     _lightingShaderUniformLocations.materialColor);
+
+    _pBith = new Vehicle(_lightingShaderProgram->getShaderProgramHandle(),
+                                             _lightingShaderUniformLocations.mvpMatrix,
+                                             _lightingShaderUniformLocations.normalMtx,
+                                             _lightingShaderUniformLocations.materialColor);
 
     _createGroundBuffers();
     _generateEnvironment();
@@ -269,6 +281,7 @@ void A3Engine::mCleanupBuffers() {
 
     fprintf( stdout, "[INFO]: ...deleting models..\n" );
     delete _pSkipShowers;
+    delete _pBith;
 }
 
 //*************************************************************************************
@@ -311,7 +324,9 @@ void A3Engine::_renderScene(glm::mat4 viewMtx, glm::mat4 projMtx) const {
     // rotate the hero with our camera phi direction
     modelMtx = glm::rotate(modelMtx, 1.57f, CSCI441::X_AXIS );
     // draw hero now
-    _pSkipShowers->drawHero(modelMtx, viewMtx, projMtx);
+
+        _pSkipShowers->drawHero(modelMtx, viewMtx, projMtx);
+        _pBith->drawWagon(modelMtx, viewMtx, projMtx);
     //// END DRAWING HERO ////
 }
 
@@ -320,14 +335,24 @@ void A3Engine::_updateScene() {
     if( _keys[GLFW_KEY_SPACE] ) {
         // zoom out if shift held down
         if( (_keys[GLFW_KEY_LEFT_SHIFT] || _keys[GLFW_KEY_RIGHT_SHIFT]) &&  _isArcballCam ) {
-            _pSkipShowers->getArcballCam()->moveBackward(_arcBallCamSpeed);
+            if(_isSkipShowers) {
+                _pSkipShowers->getArcballCam()->moveBackward(_arcBallCamSpeed);
+            }
+            else if(_isBith){
+                _pBith->getArcballCam()->moveBackward(_arcBallCamSpeed);
+            }
         }
         else if ((_keys[GLFW_KEY_LEFT_SHIFT] || _keys[GLFW_KEY_RIGHT_SHIFT]) && _isFreeCam) {
             _pFreeCam->moveBackward(_cameraSpeed.x);
         }
         // zoom in if space pressed and no shift
         else if (_isArcballCam) {
-            _pSkipShowers->getArcballCam()->moveForward(_arcBallCamSpeed);
+            if(_isSkipShowers) {
+                _pSkipShowers->getArcballCam()->moveForward(_arcBallCamSpeed);
+            }
+            else if(_isBith){
+                _pBith->getArcballCam()->moveForward(_arcBallCamSpeed);
+            }
         }
         else if (_isFreeCam) {
             _pFreeCam->moveForward(_cameraSpeed.x);
@@ -335,19 +360,40 @@ void A3Engine::_updateScene() {
     }
     // turn right
     if( _keys[GLFW_KEY_D] || _keys[GLFW_KEY_RIGHT] ) {
-        _pSkipShowers->turnRight();
+        if(_isSkipShowers){
+            _pSkipShowers->turnRight();
+        }
+        else if(_isBith){
+            _pBith->turnRight();
+        }
     }
     // turn left
     if( _keys[GLFW_KEY_A] || _keys[GLFW_KEY_LEFT] ) {
-        _pSkipShowers->turnLeft();
+        if(_isSkipShowers) {
+            _pSkipShowers->turnLeft();
+        }
+        else if(_isBith){
+            _pBith->turnLeft();
+        }
     }
     // move forward
     if( _keys[GLFW_KEY_W] || _keys[GLFW_KEY_UP] ) {
-        _pSkipShowers->moveForwards();
+        if(_isSkipShowers) {
+            _pSkipShowers->moveForwards();
+        }
+        else if(_isBith) {
+            _pBith->moveForwards();
+        }
     }
     // move backward
     if( _keys[GLFW_KEY_S] || _keys[GLFW_KEY_DOWN] ) {
-        _pSkipShowers->moveBackwards();
+        if(_isSkipShowers) {
+
+            _pSkipShowers->moveBackwards();
+        }
+        else if(_isBith){
+            _pBith->moveBackwards();
+        }
     }
 
     // change camera view
@@ -355,16 +401,33 @@ void A3Engine::_updateScene() {
         _isArcballCam = true;
         _isFreeCam = false;
         _isFirstPersonCam = false;
+
+
     }
     else if (_keys[GLFW_KEY_2]) {   // set camera to FreeCam
         _isFreeCam = true;
         _isArcballCam = false;
         _isFirstPersonCam = false;
+
     }
     else if (_keys[GLFW_KEY_3]) {  // set camera to first person
         _isFirstPersonCam = true;
         _isArcballCam = false;
         _isFreeCam = false;
+
+
+    }
+    else if(_keys[GLFW_KEY_0]){
+
+        if(_isSkipShowers){
+            _isSkipShowers = false;
+            _isBith = true;
+        }
+        else if(_isBith){
+            _isSkipShowers = true;
+            _isBith = false;
+        }
+
     }
 }
 
@@ -387,13 +450,29 @@ void A3Engine::run() {
 
         // draw everything to the window (based on current camera view)
         if (_isArcballCam) {
-            _renderScene(_pSkipShowers->getArcballCam()->getViewMatrix(), _pSkipShowers->getArcballCam()->getProjectionMatrix());
+            if(_isSkipShowers) {
+                _renderScene(_pSkipShowers->getArcballCam()->getViewMatrix(),
+                             _pSkipShowers->getArcballCam()->getProjectionMatrix());
+            }
+            else if(_isBith){
+                _renderScene(_pBith->getArcballCam()->getViewMatrix(),
+                             _pBith->getArcballCam()->getProjectionMatrix());
+            }
         }
         else if (_isFreeCam) {
             _renderScene(_pFreeCam->getViewMatrix(), _pFreeCam->getProjectionMatrix());
         }
         else if (_isFirstPersonCam) {
-            _renderScene(_pSkipShowers->getFirstPersonCam()->getViewMatrix(), _pSkipShowers->getFirstPersonCam()->getProjectionMatrix());
+            if(_isSkipShowers) {
+
+
+                _renderScene(_pSkipShowers->getFirstPersonCam()->getViewMatrix(),
+                             _pSkipShowers->getFirstPersonCam()->getProjectionMatrix());
+            }
+            else if(_isBith){
+                _renderScene(_pBith->getFirstPersonCam()->getViewMatrix(),
+                             _pBith->getFirstPersonCam()->getProjectionMatrix());
+            }
         }
         _updateScene();
 

@@ -8,106 +8,108 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug"/>
+				<Option working_dir="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="lab05">
-				<Option output="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/lab05.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug"/>
+				<Option output="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/lab05.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/mingw64/include"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"/>
-					<Add directory="/mingw/include"/>
+					<Add directory="Z:/CSCI441/include"/>
+					<Add directory="C:/mingw-w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++"/>
+					<Add directory="C:/mingw-w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/mingw-w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward"/>
+					<Add directory="C:/mingw-w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include"/>
+					<Add directory="C:/mingw-w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed"/>
+					<Add directory="C:/mingw-w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 lab05"/>
-					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 lab05"/>
+					<CompileFile command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="lab05/fast">
-				<Option output="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/lab05.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug"/>
+				<Option output="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/lab05.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="C:/mingw64/include"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"/>
-					<Add directory="C:/Program Files/JetBrains/CLion 2022.1.1/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"/>
-					<Add directory="/mingw/include"/>
+					<Add directory="Z:/CSCI441/include"/>
+					<Add directory="C:/mingw-w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++"/>
+					<Add directory="C:/mingw-w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="C:/mingw-w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include/c++/backward"/>
+					<Add directory="C:/mingw-w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include"/>
+					<Add directory="C:/mingw-w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/include-fixed"/>
+					<Add directory="C:/mingw-w64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/7.3.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 lab05/fast"/>
-					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 lab05/fast"/>
+					<CompileFile command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug"/>
+				<Option working_dir="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug"/>
+				<Option working_dir="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/PROGRA~1/JETBRA~1/CLION2~1.1/bin/mingw/bin/mingw32-make.exe -f &quot;C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/mingw-w64/mingw64/bin/mingw32-make.exe -f &quot;Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/A3Engine.cpp">
+		<Unit filename="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/A3Engine.cpp">
 			<Option target="lab05"/>
 		</Unit>
-		<Unit filename="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/A3Engine.h">
+		<Unit filename="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/A3Engine.h">
 			<Option target="lab05"/>
 		</Unit>
-		<Unit filename="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/ArcBallCam.cpp">
+		<Unit filename="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/ArcBallCam.cpp">
 			<Option target="lab05"/>
 		</Unit>
-		<Unit filename="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/ArcBallCam.h">
+		<Unit filename="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/ArcBallCam.h">
 			<Option target="lab05"/>
 		</Unit>
-		<Unit filename="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/SkipShowers.cpp">
+		<Unit filename="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/SkipShowers.cpp">
 			<Option target="lab05"/>
 		</Unit>
-		<Unit filename="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/SkipShowers.h">
+		<Unit filename="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/SkipShowers.h">
 			<Option target="lab05"/>
 		</Unit>
-		<Unit filename="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/main.cpp">
+		<Unit filename="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/Vehicle.cpp">
 			<Option target="lab05"/>
 		</Unit>
-		<Unit filename="C:/Users/grant/Desktop/CSM Fall 2023/Graphics/graphicsMP/ShapeShifters_MP/A3/CMakeLists.txt">
+		<Unit filename="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/Vehicle.h">
+			<Option target="lab05"/>
+		</Unit>
+		<Unit filename="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/main.cpp">
+			<Option target="lab05"/>
+		</Unit>
+		<Unit filename="Z:/graphicsMP/graphicsMP/ShapeShifters_MP/A3/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

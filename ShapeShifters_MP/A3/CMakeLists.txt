@@ -1,16 +1,16 @@
 cmake_minimum_required(VERSION 3.14)
 project(lab05)
 set(CMAKE_CXX_STANDARD 17)
-set(SOURCE_FILES main.cpp A3Engine.cpp A3Engine.h SkipShowers.cpp SkipShowers.h ArcBallCam.cpp ArcBallCam.h)
+set(SOURCE_FILES main.cpp A3Engine.cpp A3Engine.h SkipShowers.cpp SkipShowers.h ArcBallCam.cpp ArcBallCam.h Vehicle.cpp Vehicle.h)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # Windows with MinGW Installations
 if( ${CMAKE_SYSTEM_NAME} MATCHES "Windows" AND MINGW )
     # if working on Windows but not in the lab
     # update the include directory location
-    include_directories("C:/mingw64/include")
+    include_directories("Z:/CSCI441/include")
     # update the lib directory location
-    target_link_directories(${PROJECT_NAME} PUBLIC "C:/mingw64/lib")
+    target_link_directories(${PROJECT_NAME} PUBLIC "Z:/CSCI441/lib")
     target_link_libraries(${PROJECT_NAME} opengl32 glfw3 glew32.dll gdi32)
 # OS X Installations
 elseif( APPLE AND ${CMAKE_SYSTEM_NAME} MATCHES "Darwin" )

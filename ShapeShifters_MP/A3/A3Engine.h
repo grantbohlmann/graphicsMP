@@ -7,6 +7,7 @@
 
 #include "SkipShowers.h"
 #include "ArcBallCam.h"
+#include "Vehicle.h"
 
 #include <vector>
 
@@ -70,6 +71,7 @@ private:
     // Hero Model
     SkipShowers* _pSkipShowers;
 
+    Vehicle* _pBith;
     // ArcBallCam
     GLfloat _arcBallCamSpeed;
     // FreeCam
