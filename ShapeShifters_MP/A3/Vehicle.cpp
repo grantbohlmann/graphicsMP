@@ -118,7 +118,9 @@ void Vehicle::drawWagon(glm::mat4 modelMtx, glm::mat4 viewMtx, glm::mat4 projMtx
         _drawMagicEffect(wheelPosition, modelMtx, viewMtx, projMtx);
     }
     _drawHandle(modelMtx, viewMtx, projMtx);
-    updateCam();
+
+    ///updateCam();
+    ///updateCam is crashing program. Its the same as SkipShowers with same functions and variables.
 }
 
 void Vehicle::_computeAndSendMatrixUniforms(glm::mat4 modelMtx, glm::mat4 viewMtx, glm::mat4 projMtx) const {
@@ -148,6 +150,7 @@ void Vehicle::updateCam() {
     glm::vec3 fpCameraPosition = glm::vec3(_movementX,
                                            0.45f,
                                            _movementY);
+
     _firstPersonCam->setPosition(fpCameraPosition);
     glm::vec3 fpLookAtPoint = glm::vec3(_movementX-0.1f, 0.45f, _movementY);
     _firstPersonCam->setLookAtPoint(fpLookAtPoint);
