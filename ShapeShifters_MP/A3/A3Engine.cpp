@@ -417,17 +417,15 @@ void A3Engine::_updateScene() {
 
 
     }
-    else if(_keys[GLFW_KEY_0]){
+    else if(_keys[GLFW_KEY_4]){
+        _isBith = true;
+        _isSkipShowers = false;
 
-        if(_isSkipShowers){
-            _isSkipShowers = false;
-            _isBith = true;
-        }
-        else if(_isBith){
-            _isSkipShowers = true;
-            _isBith = false;
-        }
 
+    }
+    else if(_keys[GLFW_KEY_5]){
+        _isBith = false;
+        _isSkipShowers = true;
     }
 }
 

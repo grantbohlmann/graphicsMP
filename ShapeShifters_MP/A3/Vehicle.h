@@ -56,6 +56,7 @@ private:
     GLfloat _rotateHeroAngle;
     GLfloat _movementX;
     GLfloat _movementY;
+    GLfloat _cameraTheta;
 
     ArcBallCam* _arcBallCam;
     CSCI441::FreeCam* _firstPersonCam;

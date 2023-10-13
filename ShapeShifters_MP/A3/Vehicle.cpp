@@ -39,10 +39,15 @@ Vehicle::Vehicle(GLuint shaderProgramHandle, GLint mvpMtxUniformLocation, GLint 
 
     _colorMagicEffect = glm::vec3(0.5f, 0.0f, 0.5f);
 
+    _cameraTheta = 0.0f;
     _arcBallCam = new ArcBallCam();
     _arcBallCam->setPosition(glm::vec3(1.0f, 1.0f, 1.0f));
     _arcBallCam->setTheta(0.0f);
     _arcBallCam->setPhi(1.57f);
+    _firstPersonCam = new CSCI441::FreeCam();
+    _firstPersonCam->setPosition(glm::vec3(1.0f, 1.0f, 1.0f));
+    _firstPersonCam->setTheta(_cameraTheta);
+    _firstPersonCam->setPhi(1.57f);
 }
 
 GLfloat Vehicle::getPhi() {return mVehiclePhi; }
@@ -102,9 +107,11 @@ void Vehicle::_drawHandle(glm::mat4 modelMtx, glm::mat4 viewMtx, glm::mat4 projM
 
 // Main drawing function
 void Vehicle::drawWagon(glm::mat4 modelMtx, glm::mat4 viewMtx, glm::mat4 projMtx) {
-    modelMtx = glm::translate(modelMtx, glm::vec3(0.0f, 0.0f, -0.7f));
-    modelMtx = glm::rotate(modelMtx, glm::radians(-90.0f), CSCI441::X_AXIS);
 
+    modelMtx = glm::translate(modelMtx, glm::vec3(0.0f, 0.0f, -0.7f));
+    modelMtx = glm::translate(modelMtx, glm::vec3(_movementX, _movementY, 0.0f));
+    modelMtx = glm::rotate( modelMtx, -_rotateHeroAngle-1.57f, CSCI441::Z_AXIS );
+    modelMtx = glm::rotate(modelMtx, glm::radians(-90.0f), CSCI441::X_AXIS);
     _drawWagonBody(modelMtx, viewMtx, projMtx);
 
     glm::vec3 wheelPositions[] = {
@@ -119,7 +126,7 @@ void Vehicle::drawWagon(glm::mat4 modelMtx, glm::mat4 viewMtx, glm::mat4 projMtx
     }
     _drawHandle(modelMtx, viewMtx, projMtx);
 
-    ///updateCam();
+    updateCam();
     ///updateCam is crashing program. Its the same as SkipShowers with same functions and variables.
 }
 
@@ -139,6 +146,7 @@ ArcBallCam* Vehicle::getArcballCam() {
     return _arcBallCam;
 }
 void Vehicle::updateCam() {
+
     glm::vec3 cameraPosition = glm::vec3(_movementX - 5.0f * cos(_rotateHeroAngle),
                                          _movementY - sin(_rotateHeroAngle),
                                          5.0f);
@@ -148,11 +156,10 @@ void Vehicle::updateCam() {
     _arcBallCam->recomputeOrientation();
 
     glm::vec3 fpCameraPosition = glm::vec3(_movementX,
-                                           0.45f,
+                                           2.0f,
                                            _movementY);
-
     _firstPersonCam->setPosition(fpCameraPosition);
-    glm::vec3 fpLookAtPoint = glm::vec3(_movementX-0.1f, 0.45f, _movementY);
+    glm::vec3 fpLookAtPoint = glm::vec3(_movementX-0.1f, 1.5f, _movementY);
     _firstPersonCam->setLookAtPoint(fpLookAtPoint);
     _firstPersonCam->setTheta(-_rotateHeroAngle-1.57f);
     _firstPersonCam->recomputeOrientation();
