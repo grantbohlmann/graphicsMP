@@ -13,6 +13,16 @@ uniform vec3 lightColor;
 uniform vec3 pointLightPosition;         // Position of the point light
 uniform vec3 pointLightColor;            // Color of the point light
 
+uniform float spotLightConstant;
+uniform float spotLightLinear;
+uniform float spotLightQuadratic;
+
+// add spot light uniforms
+uniform vec3 spotLightPosition;        // Position of the spotlight
+uniform vec3 spotLightDirection;       // Direction of the spotlight
+uniform float spotLightCutoff;         // Cosine of the spotlight cutoff angle
+uniform vec3 spotLightColor;           // Color of the spotlight
+
 
 uniform vec3 materialColor;             // the material color for our vertex (& whole object)
 
@@ -44,6 +54,22 @@ void main() {
     vec3 pointLightDirection = normalize(pointLightPosition - vPos);
     vec3 pointLightDiffuse = pointLightColor * materialColor * max(dot(pointLightDirection, normal), 0.0);
 
-    // sum of the contributions from the directional light and point lights
-    color = diffuseColor + pointLightDiffuse;
+    // spot light calculations
+    float distanceToLight = distance(spotLightPosition, vPos);
+
+    vec3 spotLightDir = normalize(spotLightPosition - vPos);
+
+    float cosTheta = dot(-spotLightDir, spotLightDirection);
+    if (cosTheta < spotLightCutoff) {
+        color = vec3(0.0); }
+    else {
+        float spotLightIntensity = (cosTheta - spotLightCutoff) / (1.0 - spotLightCutoff);
+        float spotLightAttenuation = 1.0 / (spotLightConstant + spotLightLinear * distanceToLight + spotLightQuadratic * distanceToLight * distanceToLight);
+        // Calculate the diffuse reflection
+        vec3 normal = normalize(normalMtx * vNormal);
+        float spotLightDiffuse = max(dot(spotLightDir, normal), 0.0);
+
+        // sum of the contributions from the directional light and point lights
+        //color = diffuseColor + pointLightDiffuse;
+        color = diffuseColor + pointLightDiffuse + spotLightColor * materialColor * spotLightDiffuse * spotLightIntensity; }
 }

@@ -123,6 +123,14 @@ private:
         GLint lightColor;
         GLint pointLightPosition;
         GLint pointLightColor;
+        GLint spotLightPosition;
+        GLint spotLightDirection;
+        float spotLightCutoff;
+        GLint spotLightColor;
+
+        float spotLightConstant;
+        float spotLightLinear;
+        float spotLightQuadratic;
 
 
     } _lightingShaderUniformLocations;

@@ -130,6 +130,11 @@ void A3Engine::mSetupShaders() {
     // assign point light uniforms
     _lightingShaderUniformLocations.pointLightPosition = _lightingShaderProgram->getUniformLocation("pointLightPosition");
     _lightingShaderUniformLocations.pointLightColor = _lightingShaderProgram->getUniformLocation("pointLightColor");
+    // assign spot light uniforms
+    _lightingShaderUniformLocations.spotLightPosition = _lightingShaderProgram->getUniformLocation("spotLightPosition");
+    _lightingShaderUniformLocations.spotLightDirection = _lightingShaderProgram->getUniformLocation("spotLightDirection");
+    //_lightingShaderUniformLocations.spotLightCutoff = _lightingShaderProgram->getUniformLocation("spotLightCutoff");
+    _lightingShaderUniformLocations.spotLightColor = _lightingShaderProgram->getUniformLocation("spotLightColor");
 
     _lightingShaderAttributeLocations.vPos         = _lightingShaderProgram->getAttributeLocation("vPos");
     // assign attributes
@@ -264,7 +269,16 @@ void A3Engine::mSetupScene() {
 
     // Set up point light parameters
     glm::vec3 pointLightPosition = glm::vec3(0.0f, 5.0f, 0.0f);
-    glm::vec3 pointLightColor = glm::vec3(0.0f, 0.5f, 0.0f);
+    glm::vec3 pointLightColor = glm::vec3(0.0f, 1.0f, 0.0f);
+
+    // Set up spot light parameters
+    glm::vec3 spotLightPosition = glm::vec3(0.0f, 5.0f, 0.0f);
+    glm::vec3 spotLightDirection = glm::vec3(0.0f, -1.0f, 0.0f);
+    float spotLightCutoff = 0.1f;
+    glm::vec3 spotLightColor = glm::vec3(1.0f, 1.0f, 1.0f);
+    float spotLightConstant = 1.0f;
+    float spotLightLinear = 0.09f;
+    float spotLightQuadratic = 0.032f;
 
 
     glProgramUniform3fv(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.lightDirection, 1, &lightDirection[0]);
@@ -273,6 +287,17 @@ void A3Engine::mSetupScene() {
     // Set point light uniform variables
     glProgramUniform3fv(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.pointLightPosition, 1, &pointLightPosition[0]);
     glProgramUniform3fv(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.pointLightColor, 1, &pointLightColor[0]);
+
+    // Set spot light uniform variables
+    glProgramUniform3fv(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.spotLightPosition, 1, &spotLightPosition[0]);
+    glProgramUniform3fv(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.spotLightDirection, 1, &spotLightDirection[0]);
+    glProgramUniform1f(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.spotLightCutoff, spotLightCutoff);
+    glProgramUniform3fv(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.spotLightColor, 1, &spotLightColor[0]);
+
+    glProgramUniform1f(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.spotLightConstant, spotLightConstant);
+    glProgramUniform1f(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.spotLightLinear, spotLightLinear);
+    glProgramUniform1f(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.spotLightQuadratic, spotLightQuadratic);
+
 }
 
 //*************************************************************************************
