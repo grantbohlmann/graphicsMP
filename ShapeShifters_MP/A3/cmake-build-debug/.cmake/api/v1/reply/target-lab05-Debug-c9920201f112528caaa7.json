@@ -62,14 +62,14 @@
 					"fragment" : "-g"
 				},
 				{
-					"fragment" : "-std=gnu++1z"
+					"fragment" : "-std=gnu++17"
 				}
 			],
 			"includes" : 
 			[
 				{
 					"backtrace" : 4,
-					"path" : "Z:/CSCI441/include"
+					"path" : "C:/mingw64/include"
 				}
 			],
 			"language" : "CXX",
@@ -106,7 +106,7 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LZ:\\CSCI441\\lib",
+				"fragment" : "-LC:\\mingw64\\lib",
 				"role" : "libraryPath"
 			},
 			{

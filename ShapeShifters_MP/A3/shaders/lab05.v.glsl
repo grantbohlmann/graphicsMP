@@ -9,6 +9,10 @@ uniform mat3 normalMtx;
 uniform vec3 lightDirection;
 uniform vec3 lightColor;
 
+// add point light uniforms
+uniform vec3 pointLightPosition;         // Position of the point light
+uniform vec3 pointLightColor;            // Color of the point light
+
 
 uniform vec3 materialColor;             // the material color for our vertex (& whole object)
 
@@ -16,7 +20,6 @@ uniform vec3 materialColor;             // the material color for our vertex (& 
 layout(location = 0) in vec3 vPos;      // the position of this specific vertex in object space
 // TODO #C: add vertex normal
 layout(location = 1) in vec3 vNormal;
-
 
 // varying outputs
 layout(location = 0) out vec3 color;    // color to apply to this vertex
@@ -35,5 +38,12 @@ void main() {
     vec3 diffuseColor = lightColor * materialColor * max(dot(lightVec, normal), 0.0); // calculate diffuse component
 
     // TODO #G: assign the color for this vertex
-    color = diffuseColor;
+    // color = diffuseColor;
+
+    // point light calculations
+    vec3 pointLightDirection = normalize(pointLightPosition - vPos);
+    vec3 pointLightDiffuse = pointLightColor * materialColor * max(dot(pointLightDirection, normal), 0.0);
+
+    // sum of the contributions from the directional light and point lights
+    color = diffuseColor + pointLightDiffuse;
 }

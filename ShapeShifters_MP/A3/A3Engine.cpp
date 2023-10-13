@@ -127,10 +127,14 @@ void A3Engine::mSetupShaders() {
     _lightingShaderUniformLocations.normalMtx = _lightingShaderProgram->getUniformLocation("normalMtx");
     _lightingShaderUniformLocations.lightDirection = _lightingShaderProgram->getUniformLocation("lightDirection");
     _lightingShaderUniformLocations.lightColor = _lightingShaderProgram->getUniformLocation("lightColor");
+    // assign point light uniforms
+    _lightingShaderUniformLocations.pointLightPosition = _lightingShaderProgram->getUniformLocation("pointLightPosition");
+    _lightingShaderUniformLocations.pointLightColor = _lightingShaderProgram->getUniformLocation("pointLightColor");
 
     _lightingShaderAttributeLocations.vPos         = _lightingShaderProgram->getAttributeLocation("vPos");
     // assign attributes
     _lightingShaderAttributeLocations.vNormal = _lightingShaderProgram->getAttributeLocation("vNormal");
+
 
 }
 
@@ -258,8 +262,17 @@ void A3Engine::mSetupScene() {
     glm::vec3 lightDirection = glm::vec3(-1,-1,-1);
     glm::vec3 lightColor = glm::vec3(1,1,1);
 
+    // Set up point light parameters
+    glm::vec3 pointLightPosition = glm::vec3(0.0f, 5.0f, 0.0f);
+    glm::vec3 pointLightColor = glm::vec3(0.0f, 0.5f, 0.0f);
+
+
     glProgramUniform3fv(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.lightDirection, 1, &lightDirection[0]);
     glProgramUniform3fv(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.lightColor, 1, &lightColor[0]);
+
+    // Set point light uniform variables
+    glProgramUniform3fv(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.pointLightPosition, 1, &pointLightPosition[0]);
+    glProgramUniform3fv(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.pointLightColor, 1, &pointLightColor[0]);
 }
 
 //*************************************************************************************

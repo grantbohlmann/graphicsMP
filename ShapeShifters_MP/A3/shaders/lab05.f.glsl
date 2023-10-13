@@ -12,3 +12,5 @@ void main() {
     // pass the interpolated color through as output
     fragColorOut = vec4(color, 1.0);
 }
+
+

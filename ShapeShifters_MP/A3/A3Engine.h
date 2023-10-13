@@ -121,6 +121,8 @@ private:
         GLint normalMtx;
         GLint lightDirection;
         GLint lightColor;
+        GLint pointLightPosition;
+        GLint pointLightColor;
 
 
     } _lightingShaderUniformLocations;
