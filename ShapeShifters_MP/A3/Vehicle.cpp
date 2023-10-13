@@ -7,9 +7,6 @@
 #include <CSCI441/OpenGLUtils.hpp>
 #include <iostream>
 
-
-void walkHero();
-
 Vehicle::Vehicle(GLuint shaderProgramHandle, GLint mvpMtxUniformLocation, GLint normalMtxUniformLocation, GLint materialColorUniformLocation ) {
     _propAngle = 0.0f;
     _propAngleRotationSpeed = _PI / 16.0f;
@@ -124,7 +121,9 @@ void Vehicle::drawWagon(glm::mat4 modelMtx, glm::mat4 viewMtx, glm::mat4 projMtx
         _drawWheel(wheelPosition, modelMtx, viewMtx, projMtx);
         _drawMagicEffect(wheelPosition, modelMtx, viewMtx, projMtx);
     }
+    _spinHandle();
     _drawHandle(modelMtx, viewMtx, projMtx);
+
 
     updateCam();
     ///updateCam is crashing program. Its the same as SkipShowers with same functions and variables.
@@ -204,4 +203,9 @@ void Vehicle::moveBackwards() {
 
 CSCI441::FreeCam* Vehicle::getFirstPersonCam() const {
     return _firstPersonCam;
+}
+
+void Vehicle::_spinHandle() {
+    _propAngle += _propAngleRotationSpeed;
+    if( _propAngle > _2PI ) _propAngle -= _2PI;
 }

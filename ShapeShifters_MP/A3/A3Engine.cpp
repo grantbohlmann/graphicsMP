@@ -224,32 +224,42 @@ void A3Engine::_generateEnvironment() {
     buildingColors[6] = glm::vec3(0.725f, 0.600f, 0.463f);    // brown
     buildingColors[7] = glm::vec3(0.624f, 0.867f, 0.910f);    // light blue
 
-    srand( time(0) );                                                   // seed our RNG
+    srand(time(0));                                                   // seed our RNG
 
     // psych! everything's on a grid.
-    for(int i = LEFT_END_POINT; i < RIGHT_END_POINT; i += GRID_SPACING_WIDTH) {
-        for(int j = BOTTOM_END_POINT; j < TOP_END_POINT; j += GRID_SPACING_LENGTH) {
+    for (int i = LEFT_END_POINT; i < RIGHT_END_POINT; i += GRID_SPACING_WIDTH) {
+        for (int j = BOTTOM_END_POINT; j < TOP_END_POINT; j += GRID_SPACING_LENGTH) {
             // don't just draw a building ANYWHERE.
-            if( i % 2 && j % 2 && getRandFloat() < 0.4f ) {
+            if (i % 2 && j % 2) {
                 // translate to spot
-                glm::mat4 transToSpotMtx = glm::translate( glm::mat4(1.0), glm::vec3(i, 0.0f, j) );
-
-                // compute random height
-                GLdouble height = powf(getRandFloat(), 2.5)*10 + 1;
-                // scale to building size
-                glm::mat4 scaleToHeightMtx = glm::scale( glm::mat4(1.0), glm::vec3(1, height, 1) );
-
-                // translate up to grid
-                glm::mat4 transToHeight = glm::translate( glm::mat4(1.0), glm::vec3(0, height/2.0f, 0) );
-
-                // compute full model matrix
-                glm::mat4 modelMatrix = transToHeight * scaleToHeightMtx * transToSpotMtx;
-
-                // compute random color
-                glm::vec3 color( buildingColors[getRand()]);
-                // store building properties
-                BuildingData currentBuilding = {modelMatrix, color};
-                _buildings.emplace_back( currentBuilding );
+                glm::mat4 transToSpotMtx = glm::translate(glm::mat4(1.0), glm::vec3(i, 0.0f, j));
+                if (getRandFloat() < 0.15f) { // If random condition is met, place a building
+                    // compute random height
+                    GLdouble height = powf(getRandFloat(), 2.5) * 10 + 1;
+                    // scale to building size
+                    glm::mat4 scaleToHeightMtx = glm::scale(glm::mat4(1.0), glm::vec3(1, height, 1));
+                    // translate up to grid
+                    glm::mat4 transToHeight = glm::translate(glm::mat4(1.0), glm::vec3(0, height / 2.0f, 0));
+                    // compute full model matrix
+                    glm::mat4 modelMatrix = transToHeight * scaleToHeightMtx * transToSpotMtx;
+                    // compute random color
+                    glm::vec3 color(buildingColors[getRand()]);
+                    // store building properties
+                    BuildingData currentBuilding = {modelMatrix, color};
+                    _buildings.emplace_back(currentBuilding);
+                } else if (getRandFloat() < 0.05f) { // If random condition is met, place a tree
+                    GLfloat trunkHeight = getRand() / 5.0f + 0.5f;
+                    // Scale the trunk
+                    glm::mat4 scaleToTrunkMtx = glm::scale(glm::mat4(1.0), glm::vec3(1.0f, trunkHeight, 1.0f));
+                    // Compute the full model matrix for the trunk
+                    glm::mat4 trunkModelMatrix = scaleToTrunkMtx * transToSpotMtx;
+                    // Generate random colors for trunk and foliage
+                    glm::vec3 trunkColor(0.4f, 0.2f, 0.0f);
+                    glm::vec3 foliageColor(0.0f, 0.6f, 0.0f);
+                    // Store tree properties
+                    TreeData currentTree = {trunkModelMatrix, trunkColor, foliageColor};
+                    _trees.emplace_back(currentTree);
+                }
             }
         }
     }
@@ -297,6 +307,9 @@ void A3Engine::mSetupScene() {
     glProgramUniform1f(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.spotLightConstant, spotLightConstant);
     glProgramUniform1f(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.spotLightLinear, spotLightLinear);
     glProgramUniform1f(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.spotLightQuadratic, spotLightQuadratic);
+
+
+
 
 }
 
@@ -351,6 +364,18 @@ void A3Engine::_renderScene(glm::mat4 viewMtx, glm::mat4 projMtx) const {
 
         CSCI441::drawSolidCube(1.0);
     }
+    for( const TreeData& currTree : _trees ) {
+        _computeAndSendMatrixUniforms(currTree.modelMatrix, viewMtx, projMtx);
+
+        _lightingShaderProgram->setProgramUniform(_lightingShaderUniformLocations.materialColor, currTree.color);
+        //draw base of trees
+        CSCI441::drawSolidCylinder(0.5, 0.5, 1.0, 8, 32);
+
+        _lightingShaderProgram->setProgramUniform(_lightingShaderUniformLocations.materialColor, currTree.color2);
+        //draw foilage
+        CSCI441::drawSolidCylinder(0, 1.5, 3, 8, 32);
+    }
+
     //// END DRAWING THE BUILDINGS ////
 
     //// BEGIN DRAWING HERO ////

@@ -23,7 +23,6 @@ uniform vec3 spotLightDirection;       // Direction of the spotlight
 uniform float spotLightCutoff;         // Cosine of the spotlight cutoff angle
 uniform vec3 spotLightColor;           // Color of the spotlight
 
-
 uniform vec3 materialColor;             // the material color for our vertex (& whole object)
 
 // attribute inputs
@@ -34,6 +33,12 @@ layout(location = 1) in vec3 vNormal;
 // varying outputs
 layout(location = 0) out vec3 color;    // color to apply to this vertex
 
+vec3 calculateSpecularLight(vec3 lightColor, vec3 lightDirection, vec3 normal, vec3 fragPos) {
+    vec3 viewDir = normalize(fragPos - vPos);
+    vec3 reflectDir = reflect(-lightDirection, normal);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 100.0);
+    return lightColor * materialColor * spec;
+}
 void main() {
     // transform & output the vertex in clip space
     gl_Position = mvpMatrix * vec4(vPos, 1.0);
@@ -60,6 +65,15 @@ void main() {
     vec3 spotLightDir = normalize(spotLightPosition - vPos);
 
     float cosTheta = dot(-spotLightDir, spotLightDirection);
+
+    vec3 specularColor = calculateSpecularLight(lightColor, lightVec, normal, vPos);
+
+    // Specular calculation for the point light
+    vec3 pointSpecularColor = calculateSpecularLight(pointLightColor, pointLightDirection, normal, vPos);
+
+    // Specular calculation for the spot light
+    vec3 spotSpecularColor = calculateSpecularLight(spotLightColor, spotLightDir, normal, vPos);
+
     if (cosTheta < spotLightCutoff) {
         color = vec3(0.0); }
     else {
@@ -71,5 +85,10 @@ void main() {
 
         // sum of the contributions from the directional light and point lights
         //color = diffuseColor + pointLightDiffuse;
-        color = diffuseColor + pointLightDiffuse + spotLightColor * materialColor * spotLightDiffuse * spotLightIntensity; }
+        color = diffuseColor + pointLightDiffuse + spotLightColor * materialColor * spotLightDiffuse * spotLightIntensity
+
+        //specular
+        +spotSpecularColor +pointSpecularColor + specularColor +
+        //ambient
+        vec3(0.2,0.2,0.2); }
 }

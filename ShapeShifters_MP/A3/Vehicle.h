@@ -164,6 +164,7 @@ private:
 
     void updateCam();
 
+    void _spinHandle();
 };
 
 

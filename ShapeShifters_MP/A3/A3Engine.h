@@ -101,9 +101,17 @@ private:
         /// \desc color to draw the building
         glm::vec3 color;
     };
+
+    struct TreeData {
+        /// \desc transformations to position and size the building
+        glm::mat4 modelMatrix;
+        /// \desc color to draw the building
+        glm::vec3 color;
+        glm::vec3 color2;
+    };
     /// \desc information list of all the buildings to draw
     std::vector<BuildingData> _buildings;
-
+    std::vector<TreeData> _trees;
     /// \desc generates building information to make up our scene
     void _generateEnvironment();
 
