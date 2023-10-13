@@ -465,6 +465,25 @@ void A3Engine::_updateScene() {
         _isBith = false;
         _isSkipShowers = true;
     }
+
+    // Update the spotlight position based on your desired motion
+    // For example, you can make it move in a circular path
+    static float angle = 0.0f; // Initialize the angle outside of the loop
+
+    float radius = 10.0f; // Adjust the radius as needed
+    float speed = 0.02f; // Adjust the speed of movement
+
+    // Calculate the new position
+    angle += speed;
+    if (angle >= 360.0f) {
+        angle -= 360.0f; // Keep the angle within a reasonable range
+    }
+
+    glm::vec3 newPosition = glm::vec3(radius * cos(angle), 5.0f, radius * sin(angle));
+
+    // Set the new spotlight position
+    glm::vec3 spotLightPosition = newPosition;
+    glProgramUniform3fv(_lightingShaderProgram->getShaderProgramHandle(), _lightingShaderUniformLocations.spotLightPosition, 1, &spotLightPosition[0]);
 }
 
 void A3Engine::run() {
