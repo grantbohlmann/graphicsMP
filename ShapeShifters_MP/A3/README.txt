@@ -22,6 +22,10 @@ D - turns hero to the right
 3 is First Person cam
 4 switches to Bith (Vehicle)
 5 switches to SkipShowers
+6 turn off the directional light
+7 turn off the point light
+8 turn off the spot light
+9 turn on all lights
 
 q ends program
 
@@ -48,7 +52,7 @@ Added trees
 Grant:
 Starter code from his A3
 Created camera swap variables and implemented them in starter code.
-Set up freecam
+Set up freecam and first person cam
 Implemented spot light and point light
 Fixed bugs
 

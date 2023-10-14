@@ -13,15 +13,19 @@ uniform vec3 lightColor;
 uniform vec3 pointLightPosition;         // Position of the point light
 uniform vec3 pointLightColor;            // Color of the point light
 
-uniform float spotLightConstant;
-uniform float spotLightLinear;
-uniform float spotLightQuadratic;
+uniform float pointLightConstant;       // lowkey just hardcoded these values into the attenuation because this was breaking the program
+uniform float pointLightLinear;
+uniform float pointLightQuadratic;
 
 // add spot light uniforms
 uniform vec3 spotLightPosition;        // Position of the spotlight
 uniform vec3 spotLightDirection;       // Direction of the spotlight
 uniform float spotLightCutoff;         // Cosine of the spotlight cutoff angle
 uniform vec3 spotLightColor;           // Color of the spotlight
+
+uniform float spotLightConstant;
+uniform float spotLightLinear;
+uniform float spotLightQuadratic;
 
 uniform vec3 materialColor;             // the material color for our vertex (& whole object)
 
@@ -57,7 +61,9 @@ void main() {
 
     // point light calculations
     vec3 pointLightDirection = normalize(pointLightPosition - vPos);
-    vec3 pointLightDiffuse = pointLightColor * materialColor * max(dot(pointLightDirection, normal), 0.0);
+    float distanceToPointLight = distance(pointLightPosition, vPos);
+    float pointLightAttenuation = 1.0 / (1.0 + 0.9 * distanceToPointLight + 0.02 * distanceToPointLight * distanceToPointLight);
+    vec3 pointLightDiffuse = pointLightColor * materialColor * max(dot(pointLightDirection, normal), 0.0) * pointLightAttenuation;
 
     // spot light calculations
     float distanceToLight = distance(spotLightPosition, vPos);

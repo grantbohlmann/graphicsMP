@@ -84,6 +84,11 @@ private:
     bool _isFirstPersonCam;
     bool _isFreeCam;
 
+    // Light booleans (used to turn different lights on and off)
+    bool _directionalOn;
+    bool _pointOn;
+    bool _spotOn;
+
     /// \desc the size of the world (controls the ground size and locations of buildings)
     static constexpr GLfloat WORLD_SIZE = 55.0f;
     /// \desc VAO for our ground
@@ -129,8 +134,14 @@ private:
         GLint normalMtx;
         GLint lightDirection;
         GLint lightColor;
+
         GLint pointLightPosition;
         GLint pointLightColor;
+
+        float pointLightConstant;
+        float pointLightLinear;
+        float pointLightQuadratic;
+
         GLint spotLightPosition;
         GLint spotLightDirection;
         float spotLightCutoff;
